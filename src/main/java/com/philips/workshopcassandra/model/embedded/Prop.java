@@ -12,6 +12,12 @@ public class Prop {
 
     public Prop(){}
 
+    public Prop(String name, String value, PropType type) {
+        this.name = name;
+        this.value = value;
+        this.type = type;
+    }
+
     public String getName() {
         return name;
     }
