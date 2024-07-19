@@ -17,13 +17,16 @@ docker run -d -p 9042:9042 --name cassandra1 cassandra:3.11.10
 ```
 docker exec -it cassandra1 bash
 ```
+```
+cqlsh
+```
 ### cqlsh
 ```
 describe keyspaces
 
 CREATE KEYSPACE testdb WITH replication = {'class': 'SimpleStrategy', 'replication_factor' : 1};
 
-use testdb;
+use productsdb;
 
 describe tables
 
@@ -38,6 +41,7 @@ SELECT * FROM post;
 SELECT * FROM post WHERE author = 'Maria' ALLOW FILTERING;
 
 CREATE CUSTOM INDEX body_idx ON post (body) USING 'org.apache.cassandra.index.sasi.SASIIndex' WITH OPTIONS = {'mode': 'CONTAINS', 'analyzer_class': 'org.apache.cassandra.index.sasi.analyzer.NonTokenizingAnalyzer','case_sensitive': 'false'};
+Utilizado no treinamento --> CREATE CUSTOM INDEX products_description_idx ON products (description) USING 'org.apache.cassandra.index.sasi.SASIIndex' WITH OPTIONS = {'mode': 'CONTAINS', 'analyzer_class': 'org.apache.cassandra.index.sasi.analyzer.NonTokenizingAnalyzer','case_sensitive': 'false'};
 
 SELECT * FROM post WHERE body LIKE '%MORNING%';
 ```
